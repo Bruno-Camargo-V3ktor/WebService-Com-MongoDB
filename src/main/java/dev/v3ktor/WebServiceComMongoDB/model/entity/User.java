@@ -1,11 +1,16 @@
 package dev.v3ktor.WebServiceComMongoDB.model.entity;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.io.Serializable;
 import java.util.Objects;
 
+@Document
 public class User implements Serializable {
 
     //ATRIBUTOS
+    @Id
     private String id;
     private String name;
     private String email;
