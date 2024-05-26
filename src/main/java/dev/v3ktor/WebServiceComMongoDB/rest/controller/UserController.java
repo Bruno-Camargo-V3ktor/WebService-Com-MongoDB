@@ -5,10 +5,10 @@ import dev.v3ktor.WebServiceComMongoDB.rest.dto.UserDTO;
 import dev.v3ktor.WebServiceComMongoDB.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController @RequestMapping("/api/users")
@@ -33,6 +33,15 @@ public class UserController {
     {
         User obj = service.getById(id);
         return ResponseEntity.ok( new UserDTO(obj) );
+    }
+
+    @PostMapping
+    public ResponseEntity<UserDTO> insert(  @RequestBody UserDTO obj ) throws URISyntaxException
+    {
+        User user = service.fromDTO(obj);
+        user = service.insert(user);
+
+        return ResponseEntity.created( new URI("/api/users")).body( new UserDTO(user) );
     }
 
 }
