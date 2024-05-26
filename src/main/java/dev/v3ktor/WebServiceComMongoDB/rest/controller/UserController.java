@@ -1,14 +1,13 @@
 package dev.v3ktor.WebServiceComMongoDB.rest.controller;
 
 import dev.v3ktor.WebServiceComMongoDB.model.entity.User;
+import dev.v3ktor.WebServiceComMongoDB.rest.dto.UserDTO;
 import dev.v3ktor.WebServiceComMongoDB.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Arrays;
 import java.util.List;
 
 @RestController @RequestMapping("/api/users")
@@ -20,9 +19,12 @@ public class UserController {
 
     //ENDPOINTS
     @GetMapping()
-    public ResponseEntity< List<User> > getAll()
+    public ResponseEntity< List<UserDTO> > getAll()
     {
-        return ResponseEntity.ok( service.getAll() );
+        List<User> users = service.getAll();
+        List<UserDTO> dtos = users.stream().map( (user) -> new UserDTO(user) ).toList();
+
+        return ResponseEntity.ok( dtos );
     }
 
 }
