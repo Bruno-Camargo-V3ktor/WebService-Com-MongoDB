@@ -52,4 +52,11 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
+    @PutMapping("/{ID}")
+    public ResponseEntity<UserDTO> updateById( @PathVariable("ID") String id, @RequestBody UserDTO obj )
+    {
+        User user = service.updateById(id, service.fromDTO(obj));
+        return ResponseEntity.ok( new UserDTO(user) );
+    }
+
 }
