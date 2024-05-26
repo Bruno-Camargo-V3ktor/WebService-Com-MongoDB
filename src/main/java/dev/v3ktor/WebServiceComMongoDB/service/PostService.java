@@ -6,6 +6,8 @@ import dev.v3ktor.WebServiceComMongoDB.rest.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PostService {
 
@@ -22,5 +24,9 @@ public class PostService {
         return obj;
     }
 
+    public List<Post> getByTitle(String text)
+    {
+        return postRepository.findByTitleContainsIgnoreCase(text);
+    }
 
 }
