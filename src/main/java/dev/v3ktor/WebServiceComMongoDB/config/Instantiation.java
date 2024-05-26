@@ -4,6 +4,7 @@ import dev.v3ktor.WebServiceComMongoDB.model.entity.Post;
 import dev.v3ktor.WebServiceComMongoDB.model.entity.User;
 import dev.v3ktor.WebServiceComMongoDB.model.repository.PostRepository;
 import dev.v3ktor.WebServiceComMongoDB.model.repository.UserRepository;
+import dev.v3ktor.WebServiceComMongoDB.rest.dto.AuthorDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -35,8 +36,11 @@ public class Instantiation implements CommandLineRunner {
 
         userRepository.saveAll( Arrays.asList(maria, alex, bob) );
 
-        Post post1 = new Post(null, Instant.parse("2018-03-21T14:52:09Z"), "Partiu Viagem!", "Vou viajar para São Paulo, abraços", maria);
-        Post post2 = new Post(null, Instant.parse("2018-03-23T18:12:13Z"), "Bom dia!", "Acordei feliz hoje!", maria);
+        Post post1 = new Post(null, Instant.parse("2018-03-21T14:52:09Z"), "Partiu Viagem!",
+                "Vou viajar para São Paulo, abraços", new AuthorDTO(maria));
+
+        Post post2 = new Post(null, Instant.parse("2018-03-23T18:12:13Z"), "Bom dia!",
+                "Acordei feliz hoje!", new AuthorDTO(maria));
 
 
         postRepository.saveAll( Arrays.asList(post1, post2) );
