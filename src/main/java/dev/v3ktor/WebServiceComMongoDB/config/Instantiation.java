@@ -1,19 +1,19 @@
 package dev.v3ktor.WebServiceComMongoDB.config;
 
+import java.time.Instant;
+import java.util.Arrays;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
+
 import dev.v3ktor.WebServiceComMongoDB.model.entity.Post;
 import dev.v3ktor.WebServiceComMongoDB.model.entity.User;
 import dev.v3ktor.WebServiceComMongoDB.model.repository.PostRepository;
 import dev.v3ktor.WebServiceComMongoDB.model.repository.UserRepository;
 import dev.v3ktor.WebServiceComMongoDB.rest.dto.AuthorDTO;
 import dev.v3ktor.WebServiceComMongoDB.rest.dto.CommentDTO;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
-import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
-
-import java.time.Instant;
-import java.util.Arrays;
 
 @Configuration @Profile("test")
 public class Instantiation implements CommandLineRunner {

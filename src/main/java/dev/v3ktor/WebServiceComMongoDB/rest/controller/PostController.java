@@ -1,13 +1,15 @@
 package dev.v3ktor.WebServiceComMongoDB.rest.controller;
 
-import dev.v3ktor.WebServiceComMongoDB.model.entity.Post;
-import dev.v3ktor.WebServiceComMongoDB.service.PostService;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import dev.v3ktor.WebServiceComMongoDB.model.entity.Post;
+import dev.v3ktor.WebServiceComMongoDB.service.PostService;
 
 @RestController @RequestMapping("/api/posts")
 public class PostController {
@@ -34,6 +36,22 @@ public class PostController {
         else { posts = service.getByTitle(text); }
 
         return ResponseEntity.ok( posts );
+    }
+
+    @GetMapping("/fullsearch")
+    public ResponseEntity< List<Post> > getbyFilter(
+            @RequestParam(value = "text", defaultValue = "") String text,
+            @RequestParam(value = "minDate", defaultValue = "1999-01-01") String minDate,
+            @RequestParam(value = "maxDate", defaultValue = "") String maxDate
+    )
+    {
+        Instant min_date = Instant.parse( String.format("%sT00:00:00Z", minDate) );
+        Instant max_date;
+
+        if(maxDate.isEmpty()) { max_date = Instant.parse( String.format("%sT00:00:00Z", LocalDate.now()) ); }
+        else{ max_date = Instant.parse( String.format("%sT00:00:00Z", maxDate) ); }
+
+        return ResponseEntity.ok( service.fullSerach(text, min_date, max_date) );
     }
 
 }

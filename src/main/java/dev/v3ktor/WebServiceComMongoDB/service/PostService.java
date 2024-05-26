@@ -1,12 +1,15 @@
 package dev.v3ktor.WebServiceComMongoDB.service;
 
-import dev.v3ktor.WebServiceComMongoDB.model.entity.Post;
-import dev.v3ktor.WebServiceComMongoDB.model.repository.PostRepository;
-import dev.v3ktor.WebServiceComMongoDB.rest.exception.ObjectNotFoundException;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import dev.v3ktor.WebServiceComMongoDB.model.entity.Post;
+import dev.v3ktor.WebServiceComMongoDB.model.repository.PostRepository;
+import dev.v3ktor.WebServiceComMongoDB.rest.exception.ObjectNotFoundException;
 
 @Service
 public class PostService {
@@ -32,6 +35,12 @@ public class PostService {
     public List<Post> getByTitle(String text)
     {
         return postRepository.searchTitle(text);
+    }
+
+    public List<Post> fullSerach(String text, Instant minDate, Instant maxDate)
+    {
+        maxDate = maxDate.plus(1, ChronoUnit.DAYS);
+        return postRepository.fullSearch(text, minDate, maxDate);
     }
 
 }
