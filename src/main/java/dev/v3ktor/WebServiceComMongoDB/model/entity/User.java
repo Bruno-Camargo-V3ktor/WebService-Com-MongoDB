@@ -2,6 +2,7 @@ package dev.v3ktor.WebServiceComMongoDB.model.entity;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.MongoId;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -10,7 +11,7 @@ import java.util.Objects;
 public class User implements Serializable {
 
     //ATRIBUTOS
-    @Id
+    @MongoId
     private String id;
     private String name;
     private String email;
