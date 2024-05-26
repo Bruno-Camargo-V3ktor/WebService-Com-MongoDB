@@ -1,8 +1,5 @@
 
 spring:
-  profiles:
-    active: test
-
   application:
     name: WebServiceComMongoDB
 
