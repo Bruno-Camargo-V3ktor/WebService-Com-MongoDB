@@ -4,6 +4,7 @@ import dev.v3ktor.WebServiceComMongoDB.model.entity.User;
 import dev.v3ktor.WebServiceComMongoDB.rest.dto.UserDTO;
 import dev.v3ktor.WebServiceComMongoDB.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,6 +43,13 @@ public class UserController {
         user = service.insert(user);
 
         return ResponseEntity.created( new URI("/api/users")).body( new UserDTO(user) );
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletById( @PathVariable("id") String id )
+    {
+        service.deleteById(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
 }
