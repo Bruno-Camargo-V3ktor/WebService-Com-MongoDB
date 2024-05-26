@@ -1,5 +1,6 @@
 package dev.v3ktor.WebServiceComMongoDB.rest.controller;
 
+import dev.v3ktor.WebServiceComMongoDB.model.entity.Post;
 import dev.v3ktor.WebServiceComMongoDB.model.entity.User;
 import dev.v3ktor.WebServiceComMongoDB.rest.dto.UserDTO;
 import dev.v3ktor.WebServiceComMongoDB.service.UserService;
@@ -57,6 +58,13 @@ public class UserController {
     {
         User user = service.updateById(id, service.fromDTO(obj));
         return ResponseEntity.ok( new UserDTO(user) );
+    }
+
+    @GetMapping("/{ID}/posts")
+    public ResponseEntity< List<Post> > getPostsByUserId(@PathVariable("ID") String id )
+    {
+        User obj = service.getById(id);
+        return ResponseEntity.ok( obj.getPosts() );
     }
 
 }
