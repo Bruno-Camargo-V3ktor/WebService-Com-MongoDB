@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController @RequestMapping("/api/posts")
@@ -25,10 +26,13 @@ public class PostController {
 
 
     @GetMapping("/titlesearch")
-    public ResponseEntity< List<Post> > getByTitle( @RequestParam(value = "text", defaultValue = "") String text )
+    public ResponseEntity< List<Post> > getByTitle( @RequestParam(value = "text", defaultValue = "") String text, @RequestParam(value = "c", defaultValue = "true") Boolean c )
     {
-        System.out.println(text);
-        List<Post> posts = service.getByTitle(text);
+        System.out.println(c);
+        List<Post> posts;
+        if(c) { posts = service.getByTitleContains(text); }
+        else { posts = service.getByTitle(text); }
+
         return ResponseEntity.ok( posts );
     }
 
